@@ -18,6 +18,7 @@ module.exports.saveTask = async (req,res) => {
         console.log(data);
         res.send(data);
     })
+    .catch((err)=> console.log(err));
 }
 
 
