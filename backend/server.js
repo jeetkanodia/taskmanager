@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const routes = require('./routes/TaskRoute')
 
 require('dotenv').config()
 
@@ -11,6 +12,11 @@ mongoose
 .then(()=>{
     console.log("Connected to MongoDB")
 })
+.catch((err)=>{
+    console.log(err);
+})
+
+app.use(routes)
 
 app.listen(PORT,()=>
 {
