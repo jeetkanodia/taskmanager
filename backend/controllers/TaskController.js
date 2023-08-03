@@ -1,16 +1,16 @@
 const TaskModel = require('../models/TaskModel')
 
+
+//get all tasks
 module.exports.getTask = async (req,res) => {
     const Task = await TaskModel.find()
     res.send(Task)
 }
 
 
-//create
+//create task
 module.exports.saveTask = async (req,res) => {
-    const {title} = req.body
-    const {description} = req.body
-    console.log(req.body)
+    const {title , description} = req.body
     TaskModel
     .create({title, description})
     .then((data)=>{
@@ -18,4 +18,23 @@ module.exports.saveTask = async (req,res) => {
         console.log(data);
         res.send(data);
     })
+}
+
+
+//update task
+module.exports.updateTask = async(req,res) =>{
+    const {_id, title,description} = req.body
+    TaskModel
+    .findByIdAndUpdate(_id , {title,description})
+    .then(()=> res.send("Updated Task"))
+    .catch((err)=> console.log(err))
+}
+
+//delete tasks
+module.exports.deleteTask = async(req,res) =>{
+    const {_id} = req.body
+    TaskModel
+    .findByIdAndDelete(_id)
+    .then(()=> res.send("Deleted Task"))
+    .catch((err)=> console.log(err))
 }
